@@ -1,0 +1,28 @@
+- hosts: server-web
+  tasks:
+  - name: Servidor web instala Apache y PHP, en webserver
+    apt:
+      name: apache2
+      state: latest
+  - name: php
+    apt:
+      name: php-cli
+  - name: Inicia Apache
+    service:
+      name: apache2
+      state: started
+  handlers:
+    - name: restart apache2
+      service:
+        name: apache2
+        state: restarted
+- hosts: server-bdd
+  tasks:
+  - name: Servidor BDD instala Mysql
+    apt:
+      name: mariadb-server
+      state: latest
+  - name: Inicia Mysql
+    service:
+      name: mysqld
+      state: started
